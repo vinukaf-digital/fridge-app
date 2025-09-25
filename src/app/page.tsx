@@ -4,100 +4,126 @@ export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="flex flex-col self-center">
+          <h1
+            className="text-4xl sm:text-6xl font-extrabold text-center sm:text-left"
+            style={{ color: "#003A59" }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Good Morning, Jhonny!
+          </h1>
+          <h3
+            className="text-2xl sm:text-3xl font-semibold text-center sm:text-left"
+            style={{ color: "#728197" }}
           >
-            Read our docs
-          </a>
+            🌤️ It's better to go shopping before this friday
+          </h3>
+        </div>
+        <div>
+          <div className="m-10 border border-gray-300 shadow-lg p-10 rounded">
+            <div className="flex flex-row gap-4">
+              <input
+                aria-label="Item name"
+                type="text"
+                className="border border-gray-400 rounded px-3 py-2"
+              />
+              <input
+                type="text"
+                className="border border-gray-400 rounded px-3 py-2 shadow"
+              />
+              <button className="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-600 w-full">
+                ADD TO FRIDGE
+              </button>
+            </div>
+            <h3
+              className="text-md sm:text-sm font-semibold text-left mt-4"
+              style={{ color: "#728197" }}
+            >
+              ⚠️ We don't want more than one piece of the same food in our
+              fridge.
+            </h3>
+          </div>
+          <div className="flex flex-col self-end text-right w-full">
+            Total Items - 4
+            <div className="flex flex-col gap-4 w-full mt-2">
+              <div className="bg-gray-100 border border-gray-300 rounded p-4 w-full shadow flex items-center justify-between">
+                <div className="flex flex-row flex-1 justify-between items-center gap-4">
+                  <div className="font-semibold flex-1 text-left">Car 1</div>
+                  <div className="text-sm text-gray-500 flex-1 text-center">
+                    Expiry: 2024-06-15
+                  </div>
+                  <div className="text-xs text-green-600 flex-1 text-center">
+                    Expired
+                  </div>
+                </div>
+                <button
+                  aria-label="Delete"
+                  className="text-red-500 hover:text-red-700 ml-4"
+                >
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                    <path
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 7h12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7h12z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="bg-gray-100 border border-gray-300 rounded p-4 w-full shadow flex items-center justify-between">
+                <div className="flex flex-row flex-1 justify-between items-center gap-4">
+                  <div className="font-semibold flex-1 text-left">Car 2</div>
+                  <div className="text-sm text-gray-500 flex-1 text-center">
+                    Expiry: 2024-06-18
+                  </div>
+                  <div className="text-xs text-yellow-600 flex-1 text-center">
+                    Healthy
+                  </div>
+                </div>
+                <button
+                  aria-label="Delete"
+                  className="text-red-500 hover:text-red-700 ml-4"
+                >
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                    <path
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 7h12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7h12z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="bg-gray-100 border border-gray-300 rounded p-4 w-full shadow flex items-center justify-between">
+                <div className="flex flex-row flex-1 justify-between items-center gap-4">
+                  <div className="font-semibold flex-1 text-left">Car 3</div>
+                  <div className="text-sm text-gray-500 flex-1 text-center">
+                    Expiry: 2024-06-20
+                  </div>
+                  <div className="text-xs text-red-600 flex-1 text-center">
+                    Expiring Soon
+                  </div>
+                </div>
+                <button
+                  aria-label="Delete"
+                  className="text-red-500 hover:text-red-700 ml-4"
+                >
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                    <path
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 7h12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7h12z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
