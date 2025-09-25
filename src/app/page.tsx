@@ -5,8 +5,9 @@ import { convertDateForAPI } from "./utils/dateConverter";
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { fetchItems, addItem, deleteItem, updateItem } from './store/fridgeSlice'
 import { useState, useEffect } from "react";
+import dynamic from 'next/dynamic';
 
-export default function Home() {
+const FridgeApp = () => {
   const dispatch = useAppDispatch();
   const {items, isLoading , error} =  useAppSelector((state) => state.fridge);
 
@@ -159,7 +160,7 @@ export default function Home() {
                     </div>
 
                     <button
-                      onClick={() => setDeleteConfirmation({show: true, itemId: item._id, itemName: item.title})}
+                      onClick={() => setDeleteConfirmation({show: false, itemId: item._id, itemName: item.title})}
                       aria-label="Delete"
                       className="text-red-500 hover:text-red-700 ml-4"
                     >
@@ -218,3 +219,7 @@ export default function Home() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(FridgeApp), {
+  ssr: false,
+});
