@@ -146,7 +146,6 @@ export default function Home() {
                     className="bg-gray-100 border border-gray-300 rounded p-4 w-full shadow flex items-center justify-between cursor-pointer"
                     onClick={() => handleItemClick(item)}
                   >
-                    {/* Item Info */}
                     <div className="flex flex-row flex-1 justify-between items-center gap-4">
                       <div className="font-semibold flex-1 text-left">
                         {item.title}
@@ -186,7 +185,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      {/* Delete Confirmation Modal */}
+      
       {deleteConfirmation.show && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4">
