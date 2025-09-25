@@ -160,7 +160,7 @@ const FridgeApp = () => {
                     </div>
 
                     <button
-                      onClick={() => setDeleteConfirmation({show: false, itemId: item._id, itemName: item.title})}
+                      onClick={() => setDeleteConfirmation({show: true, itemId: item._id, itemName: item.title})}
                       aria-label="Delete"
                       className="text-red-500 hover:text-red-700 ml-4"
                     >
@@ -220,6 +220,4 @@ const FridgeApp = () => {
   );
 }
 
-export default dynamic(() => Promise.resolve(FridgeApp), {
-  ssr: false,
-});
+export default FridgeApp;
