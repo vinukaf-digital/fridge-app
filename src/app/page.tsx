@@ -1,4 +1,4 @@
-import Image from "next/image";
+import useFridgeItems from "./hooks/fridgeItems";
 
 export default function Home() {
   return (
