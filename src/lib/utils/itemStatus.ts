@@ -1,4 +1,4 @@
-export default function getItemStatus(expiryDate: string) {
+export function getItemStatus(expiryDate: string) {
     const currentDate = new Date();
     const expiry = new Date(expiryDate);
     const timeDiff = expiry.getTime() - currentDate.getTime();
