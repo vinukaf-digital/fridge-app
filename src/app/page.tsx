@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 
-// Import RTK Query hooks
 import {
   useGetFridgeItemsQuery,
   useAddFridgeItemMutation,

@@ -7,14 +7,22 @@ interface FridgeItemCardProps {
     title: string;
     expiry: string;
   };
-  status: { label: string; color: string };
+  status: {
+    label: string;
+    variant: "fresh" | "expiring" | "expired";
+  };
   onItemClick: () => void;
   onDeleteClick: () => void;
 }
 
-export const FridgeItemCard = ({ item, status, onItemClick, onDeleteClick }: FridgeItemCardProps) => (
+export const FridgeItemCard = ({
+  item,
+  status,
+  onItemClick,
+  onDeleteClick,
+}: FridgeItemCardProps) => (
   <div
-    className="bg-gray-100 border border-gray-300 rounded p-4 w-full shadow flex items-center justify-between cursor-pointer"
+    className="bg-gray-100 border border-gray-300 rounded p-4 w-full shadow flex items-center justify-between cursor-pointer hover:bg-gray-200 transition-colors"
     onClick={onItemClick}
   >
     <div className="flex flex-row flex-1 justify-between items-center gap-4">
@@ -22,7 +30,7 @@ export const FridgeItemCard = ({ item, status, onItemClick, onDeleteClick }: Fri
       <div className="text-sm text-gray-500 flex-1 text-center">
         Expiry: {item.expiry}
       </div>
-      <Badge label={status.label} color={status.color} />
+      <Badge label={status.label} variant={status.variant} />
     </div>
     <button
       onClick={(e) => {
@@ -36,4 +44,3 @@ export const FridgeItemCard = ({ item, status, onItemClick, onDeleteClick }: Fri
     </button>
   </div>
 );
-

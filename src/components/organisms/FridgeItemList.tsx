@@ -1,5 +1,6 @@
 import { FridgeItemCard } from "../molecules/FridgeItemCard";
 import { LoadingSpinner } from "../atoms/LoadingSpinner";
+
 interface FridgeItemListProps {
   items: any[];
   isLoading: boolean;
@@ -7,27 +8,34 @@ interface FridgeItemListProps {
   onDeleteClick: (itemId: string, itemName: string) => void;
 }
 
-function getItemStatus(expiryDate: string) {
-  const currentDate = new Date();
-  const expiry = new Date(expiryDate);
-  const timeDiff = expiry.getTime() - currentDate.getTime();
-  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-  if (daysDiff < 0) {
-    return { label: "Expired", color: "text-red-600" };
-  } else if (daysDiff <= 30) {
-    return { label: "Expiring Soon", color: "text-yellow-600" };
-  } else {
-    return { label: "Healthy", color: "text-green-600" };
-  }
-} 
-
 export const FridgeItemList = ({
   items,
   isLoading,
   onItemClick,
   onDeleteClick,
 }: FridgeItemListProps) => {
+
+  const getItemStatus = (
+    expiry: string
+  ): {
+    label: string;
+    variant: "fresh" | "expiring" | "expired";
+  } => {
+    const expiryDate = new Date(expiry);
+    const today = new Date();
+    const daysUntilExpiry = Math.ceil(
+      (expiryDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    if (daysUntilExpiry < 0) {
+      return { label: "Expired", variant: "expired" };
+    } else if (daysUntilExpiry <= 3) {
+      return { label: "Expiring Soon", variant: "expiring" };
+    } else {
+      return { label: "Fresh", variant: "fresh" };
+    }
+  };
+
   const handleItemClick = (item: any) => {
     onItemClick(item);
   };
