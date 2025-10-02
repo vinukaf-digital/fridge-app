@@ -16,7 +16,7 @@ export const FridgeItemList = () => {
   } => {
     const expiryDate = new Date(expiry);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
+    today.setHours(0, 0, 0, 0);
     expiryDate.setHours(0, 0, 0, 0);
 
     const daysUntilExpiry = Math.ceil(
