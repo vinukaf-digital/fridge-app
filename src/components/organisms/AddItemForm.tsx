@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "../atoms/Button";
 import { FormField } from "../molecules/FormField";
-
-interface AddItemFormProps {
-  onAddItem: (title: string, expiry: string) => Promise<void>;
-  onUpdateItem: (id: string, title: string, expiry: string) => Promise<void>;
-  onReady?: (handlers: {
-    startEdit: (id: string, title: string, expiry: string) => void;
-  }) => void;
-}
+import {
+  useAddFridgeItemMutation,
+  useUpdateFridgeItemMutation,
+} from "../../lib/store/fridgeApi";
+import { cancelEdit } from "../../lib/store/formSlice";
+import type { RootState } from "../../lib/store";
 
 function convertDateForAPI(dateString: string) {
   return dateString.replace(/-/g, "/");
@@ -18,35 +17,29 @@ function convertDateForInput(dateString: string) {
   return dateString.replace(/\//g, "-");
 }
 
-export const AddItemForm = ({
-  onAddItem,
-  onUpdateItem,
-  onReady,
-}: AddItemFormProps) => {
+export const AddItemForm = () => {
+  const dispatch = useDispatch();
+  const editingItem = useSelector((state: RootState) => state.form.editingItem);
+
+  const [addItem] = useAddFridgeItemMutation();
+  const [updateItem] = useUpdateFridgeItemMutation();
+
   const [title, setTitle] = useState("");
   const [expiry, setExpiry] = useState("");
-  const [editingItem, setEditingItem] = useState<{
-    id: string;
-    title: string;
-    expiry: string;
-  } | null>(null);
 
-  const startEdit = (id: string, itemTitle: string, itemExpiry: string) => {
-    setEditingItem({ id, title: itemTitle, expiry: itemExpiry });
-    setTitle(itemTitle);
-    setExpiry(convertDateForInput(itemExpiry));
-  };
-
-  const cancelEdit = () => {
-    setEditingItem(null);
-    setTitle("");
-    setExpiry("");
-  };
-
-  // Expose handlers to parent via callback
   useEffect(() => {
-    onReady?.({ startEdit });
-  }, [onReady]);
+    if (editingItem) {
+      setTitle(editingItem.title);
+      setExpiry(convertDateForInput(editingItem.expiry));
+    } else {
+      setTitle("");
+      setExpiry("");
+    }
+  }, [editingItem]);
+
+  const handleCancel = () => {
+    dispatch(cancelEdit());
+  };
 
   const handleSubmit = async () => {
     if (title && expiry) {
@@ -54,10 +47,14 @@ export const AddItemForm = ({
 
       try {
         if (editingItem) {
-          await onUpdateItem(editingItem.id, title, expiryForAPI);
-          cancelEdit();
+          await updateItem({
+            id: editingItem.id,
+            title,
+            expiry: expiryForAPI,
+          }).unwrap();
+          dispatch(cancelEdit());
         } else {
-          await onAddItem(title, expiryForAPI);
+          await addItem({ title, expiry: expiryForAPI }).unwrap();
           setTitle("");
           setExpiry("");
         }
@@ -89,7 +86,7 @@ export const AddItemForm = ({
             {editingItem ? "UPDATE ITEM" : "ADD TO FRIDGE"}
           </Button>
           {editingItem && (
-            <Button onClick={cancelEdit} variant="secondary">
+            <Button onClick={handleCancel} variant="secondary">
               CANCEL
             </Button>
           )}

@@ -1,10 +1,11 @@
-
-import { configureStore } from '@reduxjs/toolkit';
-import { fridgeApi } from './fridgeApi';
+import { configureStore } from "@reduxjs/toolkit";
+import { fridgeApi } from "./fridgeApi";
+import formReducer from "./formSlice";
 
 export const store = configureStore({
   reducer: {
     [fridgeApi.reducerPath]: fridgeApi.reducer,
+    form: formReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(fridgeApi.middleware),
