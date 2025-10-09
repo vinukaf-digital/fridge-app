@@ -1,14 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { fromAPIDate, toAPIDate } from '../utils/dateUtils';
 
 export type FridgeItem = {
   _id: string;
   title: string;
-  expiry: string;
+  expiry: string; 
 };
 
 type AddItemRequest = {
   title: string;
-  expiry: string;
+  expiry: string; 
 };
 
 type UpdateItemRequest = {
@@ -17,16 +18,24 @@ type UpdateItemRequest = {
   expiry: string;
 };
 
+const LOCAL_NET_BASE_URL = 'http://localhost:5209/api'; 
+
 export const fridgeApi = createApi({
   reducerPath: 'fridgeApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'https://thefridge-api.karapincha.io' 
+    baseUrl: LOCAL_NET_BASE_URL 
   }),
   tagTypes: ['FridgeItems'],
   endpoints: (builder) => ({
     // GET all items
     getFridgeItems: builder.query<FridgeItem[], void>({
       query: () => '/fridge',
+      transformResponse: (response: FridgeItem[]) => {
+        return response.map(item => ({
+          ...item,
+          expiry: fromAPIDate(item.expiry)
+        }));
+      },
       providesTags: ['FridgeItems'],
     }),
 
@@ -35,9 +44,17 @@ export const fridgeApi = createApi({
       query: (item) => ({
         url: '/fridge',
         method: 'POST',
-        body: item,
+        body: {
+          ...item,
+          expiry: toAPIDate(item.expiry)
+        },
       }),
-      invalidatesTags: ['FridgeItems'], // Auto-refetch after add
+      
+      transformResponse: (response: FridgeItem) => ({
+        ...response,
+        expiry: fromAPIDate(response.expiry)
+      }),
+      invalidatesTags: ['FridgeItems'],
     }),
 
     // PUT update item
@@ -45,9 +62,17 @@ export const fridgeApi = createApi({
       query: ({ id, ...item }) => ({
         url: `/fridge/${id}`,
         method: 'PUT',
-        body: item,
+        body: {
+          ...item,
+          expiry: toAPIDate(item.expiry) 
+        },
       }),
-      invalidatesTags: ['FridgeItems'], // Auto-refetch after update
+      
+      transformResponse: (response: FridgeItem) => ({
+        ...response,
+        expiry: fromAPIDate(response.expiry)
+      }),
+      invalidatesTags: ['FridgeItems'],
     }),
 
     // DELETE item
@@ -56,7 +81,7 @@ export const fridgeApi = createApi({
         url: `/fridge/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['FridgeItems'], // Auto-refetch after delete
+      invalidatesTags: ['FridgeItems'],
     }),
   }),
 });
