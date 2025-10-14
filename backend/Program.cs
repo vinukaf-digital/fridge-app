@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+// Add CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -16,18 +16,17 @@ builder.Services.AddCors(options =>
                                              "http://127.0.0.1:3000")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
-                                .AllowCredentials(); // Added this
+                                .AllowCredentials();
                       });
 });
 
-builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+builder.Services.AddHttpClient();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// IMPORTANT: Order matters!
-app.UseCors(MyAllowSpecificOrigins); // CORS first
-
-app.MapReverseProxy(); // Then reverse proxy
+app.UseCors(MyAllowSpecificOrigins);
+app.MapControllers();
 
 app.Run();
