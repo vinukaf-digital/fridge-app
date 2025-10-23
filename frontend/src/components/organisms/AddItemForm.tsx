@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button } from "../atoms/Button";
-import { FormField } from "../molecules/FormField";
+import { Button } from "@/components/atoms/Button";
+import { FormField } from "@/components/molecules/FormField";
 import {
   useAddFridgeItemMutation,
   useUpdateFridgeItemMutation,
-} from "../../lib/store/fridgeApi";
-import { cancelEdit } from "../../lib/store/formSlice";
-import { toISODate, toAPIDate } from "../../lib/utils/dateUtils";
-import type { RootState } from "../../lib/store";
+} from "@/lib/store/fridgeApi";
+import { cancelEdit } from "@/lib/store/formSlice";
+import { toISODate, toAPIDate } from "@/lib/utils/dateUtils";
+import type { RootState } from "@/lib/store";
 
 export const AddItemForm = () => {
   const dispatch = useDispatch();

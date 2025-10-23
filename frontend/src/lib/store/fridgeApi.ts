@@ -18,12 +18,10 @@ type UpdateItemRequest = {
   expiry: string;
 };
 
-const LOCAL_NET_BASE_URL = 'http://localhost:5209/api'; 
-
 export const fridgeApi = createApi({
   reducerPath: 'fridgeApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: LOCAL_NET_BASE_URL 
+    baseUrl: (import.meta as any).env.VITE_API_BASE_URL
   }),
   tagTypes: ['FridgeItems'],
   endpoints: (builder) => ({
