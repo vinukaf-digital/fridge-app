@@ -21,7 +21,7 @@ type UpdateItemRequest = {
 export const fridgeApi = createApi({
   reducerPath: 'fridgeApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: (import.meta as any).env.VITE_API_BASE_URL
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL
   }),
   tagTypes: ['FridgeItems'],
   endpoints: (builder) => ({
