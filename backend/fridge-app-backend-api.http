@@ -1,0 +1,6 @@
+@fridge_app_backend_api_HostAddress = http://localhost:5209
+
+GET {{fridge_app_backend_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

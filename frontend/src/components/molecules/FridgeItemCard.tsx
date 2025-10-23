@@ -1,5 +1,5 @@
-import { Badge } from "../atoms/Badge";
-import { DeleteIcon } from "../atoms/DeleteIcon";
+import { Badge } from "@/components/atoms/Badge";
+import { DeleteIcon } from "@/components/atoms/DeleteIcon";
 
 interface FridgeItemCardProps {
   item: {

@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button } from "../atoms/Button";
-import { FormField } from "../molecules/FormField";
+import { Button } from "@/components/atoms/Button";
+import { FormField } from "@/components/molecules/FormField";
 import {
   useAddFridgeItemMutation,
   useUpdateFridgeItemMutation,
-} from "../../lib/store/fridgeApi";
-import { cancelEdit } from "../../lib/store/formSlice";
-import type { RootState } from "../../lib/store";
-
-function convertDateForAPI(dateString: string) {
-  return dateString.replace(/-/g, "/");
-}
-
-function convertDateForInput(dateString: string) {
-  return dateString.replace(/\//g, "-");
-}
+} from "@/lib/store/fridgeApi";
+import { cancelEdit } from "@/lib/store/formSlice";
+import { toISODate, toAPIDate } from "@/lib/utils/dateUtils";
+import type { RootState } from "@/lib/store";
 
 export const AddItemForm = () => {
   const dispatch = useDispatch();
@@ -24,13 +17,15 @@ export const AddItemForm = () => {
   const [addItem] = useAddFridgeItemMutation();
   const [updateItem] = useUpdateFridgeItemMutation();
 
+  // Store dates internally in ISO format (YYYY-MM-DD)
   const [title, setTitle] = useState("");
   const [expiry, setExpiry] = useState("");
 
   useEffect(() => {
     if (editingItem) {
       setTitle(editingItem.title);
-      setExpiry(convertDateForInput(editingItem.expiry));
+      // Convert API date to ISO format for the input
+      setExpiry(toISODate(editingItem.expiry));
     } else {
       setTitle("");
       setExpiry("");
@@ -43,7 +38,8 @@ export const AddItemForm = () => {
 
   const handleSubmit = async () => {
     if (title && expiry) {
-      const expiryForAPI = convertDateForAPI(expiry);
+      // Convert ISO format to API format before sending
+      const expiryForAPI = toAPIDate(expiry);
 
       try {
         if (editingItem) {
@@ -78,7 +74,7 @@ export const AddItemForm = () => {
           id="item-expiry"
           label="Expiry date"
           type="date"
-          value={expiry}
+          value={expiry} // ISO format works natively with input[type="date"]
           onChange={setExpiry}
         />
         <div className="flex gap-2">

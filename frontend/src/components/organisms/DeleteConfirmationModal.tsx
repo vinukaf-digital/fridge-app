@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Button } from "../atoms/Button";
-import { closeDeleteModal } from "../../lib/store/formSlice";
-import { useDeleteFridgeItemMutation } from "../../lib/store/fridgeApi";
-import type { RootState } from "../../lib/store";
+import { Button } from "@/components/atoms/Button";
+import { closeDeleteModal, cancelEdit } from "@/lib/store/formSlice";
+import { useDeleteFridgeItemMutation } from "@/lib/store/fridgeApi";
+import { RootState } from "@/lib/store";
+
 
 export const DeleteConfirmationModal = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export const DeleteConfirmationModal = () => {
     try {
       await deleteItem(deleteModal.itemId).unwrap();
       dispatch(closeDeleteModal());
+      dispatch(cancelEdit());
     } catch (err) {
       console.error("Failed to delete item:", err);
     }

@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import { FridgeItemCard } from "../molecules/FridgeItemCard";
-import { LoadingSpinner } from "../atoms/LoadingSpinner";
-import { startEdit, openDeleteModal } from "../../lib/store/formSlice";
-import { useGetFridgeItemsQuery } from "../../lib/store/fridgeApi";
+import { FridgeItemCard } from "@/components/molecules/FridgeItemCard";
+import { LoadingSpinner } from "@/components/atoms/LoadingSpinner";
+import { startEdit, openDeleteModal } from "@/lib/store/formSlice";
+import { useGetFridgeItemsQuery } from "@/lib/store/fridgeApi";
 
 export const FridgeItemList = () => {
   const dispatch = useDispatch();
